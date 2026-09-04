@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Trail Mix, daftar trail hiking impian</title>
+<meta name="theme-color" content="#123024" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&display=swap" />
+<link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+<a class="skip-link" href="#main-content">Lewati ke konten utama</a>
+
+<header class="hero">
+  <div class="hero__in">
+    <p class="brand"><span class="ico ico--brand" data-icon="mountains"></span>Trail Mix</p>
+    <h1>Catat trail impian, tandai yang selesai.</h1>
+    <p class="lede">Simpan rute, jarak, tingkat kesulitan, dan alasan pribadimu. Semua tersimpan di browser ini.</p>
+    <div class="summary" aria-live="polite">
+      <div>
+        <span class="stat__num" id="stat-total">0</span>
+        <span class="stat__lbl">Trail tercatat</span>
+      </div>
+      <div>
+        <span class="stat__num" id="stat-done">0</span>
+        <span class="stat__lbl">Sudah selesai</span>
+      </div>
+      <div>
+        <span class="stat__num"><span id="stat-km">0</span><span class="stat__u">km</span></span>
+        <span class="stat__lbl">Jarak selesai</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap cols is-loading" id="main-content">
+<p class="alert-region" id="load-alert" role="status"></p>
+
+<section class="panel" aria-labelledby="form-heading">
+  <h2 id="form-heading">Tambah trail</h2>
+  <form id="trail-form" novalidate>
+    <div class="field">
+      <label for="f-name">Nama trail</label>
+      <input id="f-name" name="name" type="text" placeholder="Rinjani via Sembalun" aria-describedby="e-name" />
+      <span class="error" id="e-name"></span>
+    </div>
+    <div class="field">
+      <label for="f-loc">Lokasi</label>
+      <input id="f-loc" name="location" type="text" placeholder="Lombok Timur, NTB" aria-describedby="e-loc" />
+      <span class="error" id="e-loc"></span>
+    </div>
+    <div class="row">
+      <div class="field">
+        <label for="f-dist">Jarak</label>
+        <input id="f-dist" name="distance" type="text" inputmode="decimal" placeholder="12.4" aria-describedby="h-dist e-dist" />
+        <span class="hint" id="h-dist">Angka lebih besar dari 0.</span>
+        <span class="error" id="e-dist"></span>
+      </div>
+      <div class="field">
+        <label for="f-unit">Unit</label>
+        <select id="f-unit" name="unit"><option value="km">km</option><option value="mi">mi</option></select>
+      </div>
+    </div>
+    <div class="field">
+      <label for="f-diff">Tingkat kesulitan</label>
+      <select id="f-diff" name="difficulty" aria-describedby="e-diff">
+        <option value="" disabled selected>Pilih tingkat</option>
+        <option value="easy">Easy</option><option value="moderate">Moderate</option>
+        <option value="hard">Hard</option><option value="epic">Epic</option>
+      </select>
+      <span class="error" id="e-diff"></span>
+    </div>
+    <div class="field">
+      <label for="f-notes">Catatan pribadi (opsional)</label>
+      <textarea id="f-notes" name="notes" rows="3" placeholder="Kenapa trail ini penting buat kamu?"></textarea>
+    </div>
+    <div class="acts">
+      <button class="btn btn--go" type="submit"><span id="submit-label">Tambah trail</span></button>
+      <button class="btn btn--ghost" type="button" id="cancel-btn" hidden>Batalkan</button>
+    </div>
+    <p class="error" id="form-alert"></p>
+  </form>
+</section>
+
+<div class="lists">
+  <section class="blank" id="empty-all" aria-labelledby="empty-all-heading" hidden>
+    <span class="ico ico--big" data-icon="mountains"></span>
+    <h2 id="empty-all-heading">Daftarmu masih kosong</h2>
+    <p>Mulai dari satu rute yang paling kamu inginkan, sisanya menyusul.</p>
+    <button class="btn btn--go" type="button" id="first-btn">Tambah trail pertama</button>
+  </section>
+
+  <section id="sec-want" aria-labelledby="want-heading">
+    <div class="sec-head">
+      <h2 id="want-heading" tabindex="-1"><span class="ico" data-icon="footprints"></span>Want to Hike</h2>
+      <span class="count" id="count-want">0 trail</span>
+    </div>
+    <ul class="grid" id="list-want">
+      <li class="card sk" aria-hidden="true"><span></span><span></span><span></span></li>
+      <li class="card sk" aria-hidden="true"><span></span><span></span><span></span></li>
+    </ul>
+    <p class="blank blank--sm" id="empty-want" hidden>Semua trail sudah selesai. Waktunya cari rute baru.</p>
+  </section>
+
+  <section id="sec-done" aria-labelledby="completed-heading">
+    <div class="sec-head">
+      <h2 id="completed-heading" tabindex="-1"><span class="ico" data-icon="check-circle"></span>Completed</h2>
+      <span class="count" id="count-done">0 trail</span>
+    </div>
+    <ul class="grid" id="list-done">
+      <li class="card sk" aria-hidden="true"><span></span><span></span><span></span></li>
+    </ul>
+    <p class="blank blank--sm" id="empty-done" hidden>Belum ada trail yang selesai. Tandai satu setelah kamu turun gunung.</p>
+  </section>
+</div>
+</main>
+
+<footer class="wrap foot">
+  <p>Semua data hanya tersimpan di localStorage browser ini.</p>
+</footer>
+
+<p class="sr-only" id="live-region" aria-live="polite"></p>
+<script type="module" src="/src/main.ts"></script>
+</body>
+</html>
